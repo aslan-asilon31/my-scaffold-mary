@@ -1,0 +1,34 @@
+bg-gradient-to-r from-cyan-500 to-blue-500
+
+mysqldump -u root -p kbn_20250117_20250204 > kbn_20250117_20250210.sql
+
+
+php artisan queue:work
+
+
+===================================
+
+
+CREATE TABLE `category_recommendations` (
+  `id` char(36) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `categories` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_by` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `updated_by` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `is_activated` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`),
+  KEY `product_category_seconds_created_by_index` (`created_by`),
+  KEY `product_category_seconds_updated_by_index` (`updated_by`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+
+
+
+https://medium.com/@tutsmake.com/laravel-11-add-product-to-cart-example-99aed10ed7cd
+
+
+
+https://github.com/tutsmake/Laravel-11-Add-Product-to-Shopping-Cart-Example-Tutorial?source=post_page-----99aed10ed7cd---------------------------------------

@@ -1,0 +1,45 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+Route::get('/login', \App\Livewire\Pages\AuthenticationResources\Login::class)->name('login');
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/dashboard', \App\Livewire\Pages\Admin\DashboardResources\DashboardList::class)->name('dashboard');
+
+
+    Route::get('/product-category-firsts', \App\Livewire\Pages\Admin\ProductCategoryFirstResources\ProductCategoryFirstList::class)->name('product_category_firsts.list');
+    Route::get('/product-category-firsts/create', \App\Livewire\Pages\Admin\ProductCategoryFirstResources\ProductCategoryFirstCrud::class)->name('product_category_firsts.create');
+    Route::get('/product-category-firsts/edit/{id}', \App\Livewire\Pages\Admin\ProductCategoryFirstResources\ProductCategoryFirstCrud::class)->name('product_category_firsts.edit');
+    Route::get('/product-category-firsts/show/{id}/{readonly}', \App\Livewire\Pages\Admin\ProductCategoryFirstResources\ProductCategoryFirstCrud::class)->where('readonly', 'readonly')->name('product_category_firsts.show');
+
+
+    Route::get('/product-category-seconds', \App\Livewire\Pages\Admin\ProductCategorySecondResources\ProductCategorySecondList::class)->name('product_category_seconds.list');
+    Route::get('/product-category-seconds/create', \App\Livewire\Pages\Admin\ProductCategorySecondResources\ProductCategorySecondCrud::class)->name('product_category_seconds.create');
+    Route::get('/product-category-seconds/edit/{id}', \App\Livewire\Pages\Admin\ProductCategorySecondResources\ProductCategorySecondCrud::class)->name('product_category_seconds.edit');
+    Route::get('/product-category-seconds/show/{id}/{readonly}', \App\Livewire\Pages\Admin\ProductCategorySecondResources\ProductCategorySecondCrud::class)->where('readonly', 'readonly')->name('product_category_seconds.show');
+
+
+    Route::get('/marketplaces', \App\Livewire\Pages\Admin\MarketplaceResources\MarketplaceList::class);
+
+    Route::get('/meta-property-groups', \App\Livewire\Pages\Admin\MetaPropertyGroupResources\MetaPropertyGroupList::class);
+
+    Route::get('/meta-properties', \App\Livewire\Pages\Admin\MetaPropertyResources\MetaPropertyList::class);
+
+    Route::get('/products', \App\Livewire\Pages\Admin\ProductResources\ProductList::class);
+
+    Route::get('/product-contents', \App\Livewire\Pages\Admin\ProductContentResources\ProductContentList::class);
+    Route::get('/product-contents/edit/{id}', \App\Livewire\Pages\Admin\ProductContentResources\ProductContentCrud::class);
+    Route::get('/product-contents/edit/{id}/readonly', \App\Livewire\Pages\Admin\ProductContentResources\ProductContentCrud::class);
+    Route::get('/product-content-metas/edit/{id}', \App\Livewire\Pages\Admin\ProductContentResources\ProductContentMetaCrud::class);
+    Route::get('/product-content-displays/edit/{id}', \App\Livewire\Pages\Admin\ProductContentResources\ProductContentDisplayCrud::class);
+    Route::get('/product-content-videos/edit/{id}', \App\Livewire\Pages\Admin\ProductContentResources\ProductContentVideoCrud::class);
+    Route::get('/product-content-specifications/edit/{id}', \App\Livewire\Pages\Admin\ProductContentResources\ProductContentSpecificationCrud::class);
+    Route::get('/product-content-features/edit/{id}', \App\Livewire\Pages\Admin\ProductContentResources\ProductContentFeatureCrud::class);
+    Route::get('/product-content-qnas/edit/{id}', \App\Livewire\Pages\Admin\ProductContentResources\ProductContentQnaCrud::class);
+    Route::get('/product-content-reviews/edit/{id}', \App\Livewire\Pages\Admin\ProductContentResources\ProductContentReviewCrud::class);
+    // Route::get('/permissions', \App\Livewire\Pages\Generals\PermissionResources\PermissionList::class);
+    // Route::get('/permissions/edit/{id}', \App\Livewire\Pages\Generals\PermissionResources\PermissionCrud::class)->name('pages.edit');
+    // Route::get('/permissions/show/{id}/{readonly}', \App\Livewire\Pages\Generals\PermissionResources\PermissionCrud::class)->where('readonly', 'readonly')->name('pages.show');
+});
+

@@ -1,0 +1,116 @@
+<div>
+    <div class="cart-wrapper">  
+        <div class="checkout">  
+            <div class="clearfix">  
+                @if ($cartItems)  
+                    <!--cart item-->  
+                    <div class="row"> 
+                        @foreach ($cartItems as $item)  
+                            <div class="cart-block cart-block-item clearfix">  
+                                <div class="image">  
+                                    <a href="product.html"><img src="{{ optional($item->product)->image_url ?? asset('frontend/assets/images/no-image.png') }}" alt="Product Image {{ $index + 1 }}" /></a>  
+                                </div>  
+                                <div class="title">  
+                                    <div><a href="product.html">{{ $item->product->name }}</a></div>  
+                                </div>  
+                                <div class="quantity">  
+                                        <input type="number"   
+                                            style="padding-left: 10px; text-align: left;"   
+                                            wire:model="cartItems.{{ $loop->index }}.qty"   
+                                            wire:change="updateCartItem('{{ $item->id }}', $event.target.value)"   
+                                            class="form-control form-quantity"   
+                                            step="1"   
+                                            min="1"   
+                                            oninput="this.value = Math.floor(this.value);" />  <!-- Menggunakan Math.floor untuk menghilangkan desimal -->  
+                                    
+                                </div>  
+                                <div class="price">  
+                                    <span class="final">Rp {{ number_format($item->amount, 0, ',', '.') }}</span>  
+                                    <span class="discount">Rp {{ number_format($item->selling_price * $item->qty, 0, ',', '.') }}</span>  
+                                </div>  
+                                <!--delete-this-item-->  
+                                <span class="icon icon-cross icon-delete" wire:click="removeCartItem('{{ $item->id }}')"></span>  
+                            </div>  
+                        @endforeach  
+                    </div>  
+        
+                    <hr />  
+        
+                    <!--cart prices -->  
+                    <div class="clearfix">  
+                        <div class="cart-block cart-block-footer clearfix">  
+                            <div>  
+                                <strong>Discount 15%</strong>  
+                            </div>  
+                            <div>  
+                                <span>Rp {{ number_format($this->calculateDiscount(), 0, ',', '.') }}</span>  
+                            </div>  
+                        </div>  
+        
+                        <div class="cart-block cart-block-footer clearfix">  
+                            <div>  
+                                <strong>Shipping</strong>  
+                            </div>  
+                            <div>  
+                                <span>Rp {{ number_format($this->calculateShipping(), 0, ',', '.') }}</span>  
+                            </div>  
+                        </div>  
+        
+                        <div class="cart-block cart-block-footer clearfix">  
+                            <div>  
+                                <strong>VAT</strong>  
+                            </div>  
+                            <div>  
+                                <span>Rp {{ number_format($this->calculateVAT(), 0, ',', '.') }}</span>  
+                            </div>  
+                        </div>  
+                    </div>  
+        
+                    <hr />  
+        
+                    <!--cart final price -->  
+                    <div class="clearfix">  
+                        <div class="cart-block cart-block-footer clearfix">  
+                            <div>  
+                                <strong>Total</strong>  
+                            </div>  
+                            <div>  
+                                <div class="h4 title">Rp {{ number_format($this->calculateFinalTotal(), 0, ',', '.') }}</div>  
+                            </div>  
+                        </div>  
+                    </div>  
+        
+                    <!--cart navigation -->  
+                    <div class="cart-block-buttons clearfix">  
+                        <div class="row">  
+                            <div class="col-xs-6">  
+                                <a href="products-grid.html" class="btn btn-clean-dark">Continue shopping</a>  
+                            </div>  
+                            <div class="col-xs-6 text-right">  
+                                <a href="/cart-item" class="btn btn-main"><span class="icon icon-cart"></span> Cart List</a>  
+                            </div>  
+                        </div>  
+                    </div>  
+                @else 
+                    keranjang masih kosong
+
+                    <hr />  
+
+                    <!--cart final price -->  
+                    <div class="clearfix">  
+                        <div class="cart-block cart-block-footer clearfix">  
+                            <div>  
+                                <strong>Total</strong>  
+                            </div>  
+                            <div>  
+                                <div class="h4 title">Rp 0</div>  
+                            </div>  
+                        </div>  
+                    </div> 
+
+                @endif
+      
+            </div>  
+        </div>  
+    </div>  
+</div>

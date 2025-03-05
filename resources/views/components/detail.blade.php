@@ -1,0 +1,1 @@
+detailll apa {{$row->id}}

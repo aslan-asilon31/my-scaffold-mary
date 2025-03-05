@@ -1,0 +1,1 @@
+<x-checkbox label="Right" wire:model="item2" right />

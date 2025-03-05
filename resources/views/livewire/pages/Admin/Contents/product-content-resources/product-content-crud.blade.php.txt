@@ -1,0 +1,60 @@
+<x-card :title="$title">
+
+  <x-product-contents.product-content-tab activatedTab="product-content" :fieldId="$id" />
+
+  <form wire:submit="{{ $id ? 'update' : 'store' }}"
+  wire:confirm="{{ $id ? 'Do you want to update this data?' : 'Do you want to store this data?' }}">
+
+    <x-choices-offline wire:model="masterForm.product_id" label="Product"
+      :options="$options['products']" placeholder="Search ..." single searchable :readonly="$isReadonly" />
+
+
+    <div class="mb-3">
+      <x-label for="masterForm.title">Title</x-label>
+      <x-input wire:model.blur="masterForm.title" placeholder="Title" :disabled="$isReadonly" />
+    </div>
+
+    <div class="mb-3">
+      <x-label for="masterForm.slug">Slug</x-label>
+      <x-input wire:model="masterForm.slug" placeholder="Slug" :disabled="$isReadonly" />
+    </div>
+
+    <div class="mb-3">
+      <x-label for="masterForm.url">URL</x-label>
+      <x-input wire:model="masterForm.url" placeholder="URL" :disabled="$isReadonly" />
+    </div>
+
+    <div class="mb-3">
+        <x-file wire:model="masterForm.image_url" label="Image" accept="image/*" crop-after-change :disabled="$isDisabled">
+          <img
+            src="{{ $masterForm->image_url ?? 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930' }}"
+            class="h-48 rounded-lg" />
+        </x-file>
+
+    </div>
+
+    <div class="mb-3">
+      <x-label for="masterForm.is_activated">Activate</x-label>
+      <x-select wire:model="masterForm.is_activated" :options="[['label' => 'Yes', 'value' => 1], ['label' => 'No', 'value' => 0]]" option-label="label" option-value="value"
+        :clearable="false" :disabled="$isReadonly" />
+    </div>
+
+    <div class="mt-4 text-center">
+      @if (!$isReadonly)
+        <div class="text-center mt-3">
+          <x-errors class="text-white mb-3" />
+          <x-button type="submit" :label="$id ? 'Update' : 'Store'" class="btn-success btn-sm text-white" />
+        </div>
+      @endif
+    </div>
+  
+    <div wire:loading wire:target="store, update" class="fixed left-0 top-0 w-full h-full bg-black opacity-25  z-[9999]">
+      <div class="w-full h-full flex justify-center items-center">
+        <x-loading class="text-primary loading-lg" />
+      </div>
+    </div>
+
+    <x-errors class="mt-4" />
+  </form>
+
+</x-card>

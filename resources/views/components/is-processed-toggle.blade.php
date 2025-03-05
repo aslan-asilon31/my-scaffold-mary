@@ -1,0 +1,1 @@
+is-processed-toggle {{$row->id}}
