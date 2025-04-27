@@ -1,20 +1,23 @@
-<x-card :title="$title" shadow separator class="border shadow">
-  <x-index-menu :url="$url" />
-
-  <livewire:pages.admin.sales.sales-order-resources.components.sales-order-table />
+<div>
 
 
-  @script
-    <script>
-        $wire.on('pg:eventRefresh-sales-order-table', () => {
-            alert('aaaa');
-        });
+    <x-index-menu :title="$title" :url="$url"   shadow separator class="" />
 
-        // Listen for the custom 'showAlert' event
-        $wire.on('showAlert', (data) => {
-            alert(data.message);
-        });
-    </script>
-    @endscript
+    <div class="">
 
-</x-card>
+        <x-table :headers="$headers"  class=""   :rows="$this->sales_orders" :cell-decoration="$cell_decoration" :sort-by="$sortBy"   with-pagination>
+<!--
+            @scope('cell_is_activated', $sales_order)
+                <x-badge :value="$sales_order->is_activated == 1 ? 'Yes':'No' " class=" {{ $sales_order->is_activated == 1 ? 'badge-primary badge-soft': 'badge-error  badge-soft'}}" />
+            @endscope
+
+            @scope('cell_image_url', $sales_order)
+                <a href="{{ $sales_order->image_url }}" class="px-4 underline underline-offset-1">{{ $product->image_url }}</a>
+            @endscope -->
+
+        </x-table>
+
+    </div>
+
+
+</div>

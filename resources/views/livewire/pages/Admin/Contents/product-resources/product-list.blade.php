@@ -1,6 +1,6 @@
 <div>
 
-    
+
     <x-index-menu :title="$title" :url="$url"   shadow separator class="" />
 
     <div class="">
@@ -28,6 +28,6 @@
         </x-table>
 
     </div>
-    
+
 
 </div>

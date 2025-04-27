@@ -10,7 +10,7 @@ use Livewire\Attributes\Locked;
 use Livewire\Attributes\Url;
 use Livewire\WithPagination;
 use Illuminate\Support\Collection;
-use Illuminate\Pagination\LengthAwarePaginator; 
+use Illuminate\Pagination\LengthAwarePaginator;
 use Mary\Traits\Toast;
 
 class ProductList extends Component
@@ -18,7 +18,7 @@ class ProductList extends Component
 
   public $title = "Products";
   public $url = "/products";
-      
+
   use WithPagination;
 
   public $productPaginators;
@@ -30,7 +30,7 @@ class ProductList extends Component
   public  $products_multi_searchable_ids;
 
 
-  #[Locked] 
+  #[Locked]
   public $productId;
 
   #[Url]
@@ -42,11 +42,11 @@ class ProductList extends Component
 
 
   public array $sortBy = ['column' => 'name', 'direction' => 'asc'];
-  
+
   public function mount()
   {
 
-    
+
     $this->headers = [
         ['key' => 'action', 'label' => 'Action', ],
         ['key' => 'id', 'label' => 'ID', ],
@@ -69,7 +69,7 @@ class ProductList extends Component
 
 
   #[Computed]
-  public function products(): LengthAwarePaginator 
+  public function products(): LengthAwarePaginator
   {
       return Product::where('name', 'LIKE', "%{$this->search}%")->paginate(5);
   }
@@ -84,21 +84,21 @@ class ProductList extends Component
           ->take(5)
           ->orderBy('name')
           ->get()
-          ->merge($selectedOption);     
+          ->merge($selectedOption);
 
       $this->productsMultiSearchable = Product::query()
           ->where('name', 'like', "%$value%")
           ->take(5)
           ->orderBy('name')
           ->get()
-          ->merge($selectedOption);     
+          ->merge($selectedOption);
   }
 
   public function searchMulti($value)
   {
     $selectedOption = Product::where('id', $this->product_searchable_id)->get();
 
-    
+
     $this->productsMultiSearchable = Product::query()
     ->where('name', 'like', "%$value%")
     ->take(5)

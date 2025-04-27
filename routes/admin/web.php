@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/login', \App\Livewire\Pages\AuthenticationResources\Login::class)->name('login');
+Route::get('/', \App\Livewire\Pages\AuthenticationResources\Login::class)->name('login');
 
 
 // Route::group(['middleware' => 'auth'], function () {
@@ -17,6 +17,7 @@ Route::get('/login', \App\Livewire\Pages\AuthenticationResources\Login::class)->
     Route::get('/products/create', \App\Livewire\Pages\Admin\Contents\ProductResources\ProductCrud::class)->name('products.create');
     Route::get('/products/edit/{id}', \App\Livewire\Pages\Admin\Contents\ProductResources\ProductCrud::class)->name('products.edit');
     Route::get('/products/show/{id}/{readonly}', \App\Livewire\Pages\Admin\Contents\ProductResources\ProductCrud::class)->where('readonly', 'readonly')->name('products.show');
+
 
     // Route::get('/product-brands', \App\Livewire\Pages\Admin\Contents\ProductBrandResources\ProductBrandList::class);
     // Route::get('/product-brands', \App\Livewire\Pages\Admin\Contents\ProductBrandResources\ProductBrandList::class)->name('product_brands.list');
