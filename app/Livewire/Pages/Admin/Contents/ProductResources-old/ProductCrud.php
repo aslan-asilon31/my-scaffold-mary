@@ -10,7 +10,6 @@ use App\Models\ProductCategoryFirst;
 
 class ProductCrud extends Component
 {
-
   public function render()
   {
     return view('livewire.pages.admin.contents.product-resources.product-crud')
@@ -77,13 +76,50 @@ class ProductCrud extends Component
   }
 
 
-  
+  public function updatedSelectedBrandId($brandId)  
+  { 
+    $products = Product::with('productCategoryFirst')    
+        ->where('products.product_brand_id', $brandId)    
+        ->get();    
+    
+        $this->productCategoryFirsts = $products->map(function ($product) {        
+          // Cek apakah productCategoryFirst ada    
+          if ($product->productCategoryFirst) {    
+              return [        
+                  'id' => $product->productCategoryFirst->id,     
+                  'name' => $product->productCategoryFirst->name,         
+                  'category_second_id' => $product->productCategoryFirst->product_category_second_id // Ambil ID kategori kedua  
+              ];        
+          }    
+          return null; // Jika tidak ada productCategoryFirst, kembalikan null    
+      })->filter()->unique('id')->values();    
+    
+      // Ambil semua kategori berdasarkan product_category_second_id yang ditemukan  
+      if ($this->productCategoryFirsts->isNotEmpty()) {  
+          // Ambil ID kategori kedua dari kategori pertama yang ditemukan  
+          $firstCategorySecondId = $this->productCategoryFirsts->first()['category_second_id'];  
+            
+          // Ambil semua kategori berdasarkan ID kategori kedua  
+          $this->productCategories = ProductCategoryFirst::where('product_category_second_id', $firstCategorySecondId)->get();  
+      } else {  
+          $this->productCategories = collect(); // Jika tidak ada kategori, kembalikan koleksi kosong  
+      } 
+
+
+
+  }  
 
 
   public function initialize()  
   {  
+    $this->options['brands'] = ProductBrand::all();
+    $this->options['product_category_firsts'] = ProductCategoryFirst::all(); 
   }
 
+  public function updatedMasterFormProductBrandId($brandId)    
+  {
+      $this->options['products'] = Product::where('product_brand_id', $brandId)->get();
+  }
 
   public function create()
   {
@@ -104,8 +140,8 @@ class ProductCrud extends Component
     \Illuminate\Support\Facades\DB::beginTransaction();
     try {
 
-      $validatedForm['created_by'] = auth()->user()->username ?? null;
-      $validatedForm['updated_by'] = auth()->user()->username ?? null;
+      $validatedForm['created_by'] = auth()->user()->username;
+      $validatedForm['updated_by'] = auth()->user()->username;
       $validatedForm['product_brand_id'] = $this->selectedBrandId; 
 
       // image_url
@@ -144,10 +180,10 @@ class ProductCrud extends Component
 
   public function edit()
   {
-    $this->isReadonly = false;
-    $this->isDisabled = false;
     $masterData = $this->masterModel::findOrFail($this->id);
     $this->masterForm->fill($masterData);
+
+    // dd($masterData);
 
   }
 
@@ -164,7 +200,7 @@ class ProductCrud extends Component
     \Illuminate\Support\Facades\DB::beginTransaction();
     try {
 
-      $validatedForm['updated_by'] = auth()->user()->username ?? null;
+      $validatedForm['updated_by'] = auth()->user()->username;
 
       // image_url
       $folderName = $this->baseFolderName;
@@ -186,9 +222,7 @@ class ProductCrud extends Component
       \Illuminate\Support\Facades\DB::commit();
 
       $this->success('Data has been updated');
-    } catch (\Throwable $e) {
-      \Log::error('Data failed : ' . $e->getMessage());  
-
+    } catch (\Throwable $th) {
       \Illuminate\Support\Facades\DB::rollBack();
       $this->error('Data failed to update');
     }

@@ -23,7 +23,7 @@ class ProductForm extends Form
   public function rules(string|null $id = null): array
   {
     return [
-      'masterForm.product_category_first_id' => 'nullable|string',
+      'masterForm.product_category_first_id' => 'required|string',
       'masterForm.availability' => 'required|string',
       'masterForm.name' => 'required|string',
       'masterForm.selling_price' => 'required|numeric|min:0',

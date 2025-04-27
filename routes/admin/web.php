@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/login', \App\Livewire\Pages\AuthenticationResources\Login::class)->name('login');
 
 
-Route::group(['middleware' => 'auth'], function () {
+// Route::group(['middleware' => 'auth'], function () {
 
     // Contents
     Route::get('/meta-property-groups', \App\Livewire\Pages\Admin\Contents\MetaPropertyGroupResources\MetaPropertyGroupList::class);
@@ -23,7 +23,7 @@ Route::group(['middleware' => 'auth'], function () {
     // Route::get('/product-brands/create', \App\Livewire\Pages\Admin\Contents\ProductBrandResources\ProductBrandCrud::class)->name('product_brands.create');
     // Route::get('/product-brands/edit/{id}', \App\Livewire\Pages\Admin\Contents\ProductBrandResources\ProductBrandCrud::class)->name('product_brands.edit');
     // Route::get('/product-brands/show/{id}/{readonly}', \App\Livewire\Pages\Admin\Contents\ProductBrandResources\ProductBrandCrud::class)->where('readonly', 'readonly')->name('product_brands.show');
-    
+
     Route::get('/product-contents/edit/{id}/metas', \App\Livewire\Pages\Admin\Contents\ProductContentResources\ProductContentMetaCrud::class);
     Route::get('/product-contents/edit/{id}/displays', \App\Livewire\Pages\Admin\Contents\ProductContentResources\ProductContentDisplayCrud::class);
     Route::get('/product-contents/edit/{id}/videos', \App\Livewire\Pages\Admin\Contents\ProductContentResources\ProductContentVideoCrud::class);
@@ -44,7 +44,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/product-content-features/edit/{id}', \App\Livewire\Pages\Admin\Contents\ProductContentResources\ProductContentFeatureCrud::class);
     Route::get('/product-content-qnas/edit/{id}', \App\Livewire\Pages\Admin\Contents\ProductContentResources\ProductContentQnaCrud::class);
     Route::get('/product-content-reviews/edit/{id}', \App\Livewire\Pages\Admin\Contents\ProductContentResources\ProductContentReviewCrud::class);
-   
+
     Route::get('/product-category-firsts', \App\Livewire\Pages\Admin\Contents\ProductCategoryFirstResources\ProductCategoryFirstList::class)->name('product_category_firsts.list');
     Route::get('/product-category-firsts/create', \App\Livewire\Pages\Admin\Contents\ProductCategoryFirstResources\ProductCategoryFirstCrud::class)->name('product_category_firsts.create');
     Route::get('/product-category-firsts/edit/{id}', \App\Livewire\Pages\Admin\Contents\ProductCategoryFirstResources\ProductCategoryFirstCrud::class)->name('product_category_firsts.edit');
@@ -73,7 +73,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/employees/create', \App\Livewire\Pages\Admin\Generals\EmployeeResources\EmployeeCrud::class);
     Route::get('/employees/edit/{id}', \App\Livewire\Pages\Admin\Generals\EmployeeResources\EmployeeCrud::class)->name('employees.edit');
     Route::get('/employees/show/{id}/{readonly}', \App\Livewire\Pages\Admin\Generals\EmployeeResources\EmployeeCrud::class)->where('readonly', 'readonly')->name('employees.show');
-    
+
     Route::get('/employee-accounts', \App\Livewire\Pages\Admin\Generals\EmployeeAccountResources\EmployeeAccountList::class);
     Route::get('/employee-accounts/create', \App\Livewire\Pages\Admin\Generals\EmployeeAccountResources\EmployeeAccountCrud::class);
     Route::get('/employee-accounts/edit/{id}', \App\Livewire\Pages\Admin\Generals\EmployeeAccountResources\EmployeeAccountCrud::class)->name('employee-accounts.edit');
@@ -94,7 +94,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/permissions/edit/{id}', \App\Livewire\Pages\Admin\Generals\PermissionResources\PermissionCrud::class)->name('pages.edit');
     Route::get('/permissions/show/{id}/{readonly}', \App\Livewire\Pages\Admin\Generals\PermissionResources\PermissionCrud::class)->where('readonly', 'readonly')->name('pages.show');
 
-    // Sales 
+    // Sales
     Route::get('/customers', \App\Livewire\Pages\Admin\Sales\CustomerResources\CustomerList::class);
     Route::get('/customers/create', \App\Livewire\Pages\Admin\Sales\CustomerResources\CustomerCrud::class);
     Route::get('/customers/edit/{id}', \App\Livewire\Pages\Admin\Sales\CustomerResources\CustomerCrud::class)->name('customer.edit');
@@ -106,7 +106,7 @@ Route::group(['middleware' => 'auth'], function () {
     // Route::get('/sales-orders/update/{id}', \App\Livewire\Pages\Admin\Sales\SalesOrderResources\SalesOrderCrud::class)->name('sales-order.edit');
     // Route::get('/sales-orders/update/{id}/{slug}', \App\Livewire\Pages\Admin\Sales\SalesOrderResources\SalesOrderCrud::class)->name('sales-order.edit');
     Route::get('/sales-orders/update/{id}', \App\Livewire\Pages\Admin\Sales\SalesOrderResources\SalesOrderCrud::class)->name('sales-order.edit');
-    
+
     Route::get('/sales-orders/edit/{id}', \App\Livewire\Pages\Admin\Sales\SalesOrderResources\SalesOrderCrud::class)->name('sales-order.edit');
 
     Route::get('/sales-orders/show/{id}/{readonly}', \App\Livewire\Pages\Admin\Sales\SalesOrderResources\SalesOrderCrud::class)->where('readonly', 'readonly')->name('sales-order.show');
@@ -123,5 +123,5 @@ Route::group(['middleware' => 'auth'], function () {
         return view('components/unauthorized-page');
     })->name('unauthorized');
 
-});
+// });
 

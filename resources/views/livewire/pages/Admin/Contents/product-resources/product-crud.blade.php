@@ -1,70 +1,134 @@
-<x-card :title="$title" shadow separator class="border shadow">
-  <div class="grid grid-cols-2 mb-4">
-    <div>
-      <x-button label="List" link="{{ $url }}" class="btn-ghost btn-outline" />
-      @if ($id)
-        <x-button label="Create" link="{{ $url . '/create' }}" class="btn-ghost btn-outline" />
-      @endif
+<div>
 
-      @if ($id && $isReadonly)
-        <x-button label="Edit" link="{{ $url . '/edit/' . $id }}" class="btn-ghost btn-outline" />
-      @endif
+    <x-index-menu :title="$title" :url="$url" :id="$id" shadow  class="" />
 
-    </div>
-    <div class="text-right">
-      @if ($id && !$isReadonly)
-        <x-button label="Delete" wire:click="delete" wire:confirm="Do you want to delete this data?"
-          class="btn-ghost btn-outline text-red-500" />
-      @endif
-    </div>
-  </div>
+    <x-form wire:submit="{{ $id ? 'update' : 'store' }}" >
 
-  <x-form wire:submit="{{ $id ? 'update' : 'store' }}" wire:confirm="Are you sure?">
+          <div id="pertanyaan">
 
-    <x-choices-offline wire:model="masterForm.product_category_first_id" label="Product Category first"
-    :options="$options['product_category_firsts']" placeholder="Search ..." single searchable :readonly="$isReadonly" />
+            <div class="mb-3">
+                <x-input 
+                    label="Name" 
+                    wire:model="masterForm.name" 
+                    id="masterForm.name" 
+                    name="masterForm.name" 
+                    placeholder="Name" 
+                    :readonly="$readonly"
 
-    <x-input wire:model="masterForm.name" label="Name" placeholder="Name" :readonly="$isReadonly" />
+                />
+            </div>
 
-    <x-input type="number" wire:model.blur="masterForm.selling_price" label="Selling Price" step="any"
-      :readonly="$isReadonly" />
+            <x-file wire:model="masterForm.image_url" label="Image" accept="image/*" crop-after-change :disabled="$isDisabled">
+                <img
+                  src="{{ $masterForm->image_url ?? 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930' }}"
+                  class="h-48 rounded-lg" />
+            </x-file>
 
-    <x-input type="number" wire:model.blur="masterForm.discount_persentage" label="Discount Persentage" step="any"
-      :readonly="$isReadonly" />
+            <div class="mb-3">
+                <x-input 
+                    label="Availability" 
+                    wire:model="masterForm.availability" 
+                    id="masterForm.availability" 
+                    name="masterForm.availability" 
+                    placeholder="availability" 
+                    :readonly="$readonly"
 
-    <x-input type="number" wire:model.blur="masterForm.discount_value" label="Discount Value" step="any"
-      :readonly="$isReadonly" />
+                />
+            </div>
 
-    <x-input type="number" wire:model.blur="masterForm.nett_price" label="Nett Price" step="any"
-      :readonly="$isReadonly" />
+            <div class="mb-3">
+                <x-input 
+                    label="Selling Price" 
+                    wire:model="masterForm.selling_price" 
+                    id="masterForm.selling_price" 
+                    name="masterForm.selling_price" 
+                    placeholder="selling price" 
+                    :readonly="$readonly"
 
-    <x-input type="number" wire:model="masterForm.weight" label="Weight (mg)" :readonly="$isReadonly" />
+                />
+            </div>
+            <div class="mb-3">
+                <x-input 
+                    label="Discount Persentage" 
+                    wire:model="masterForm.discount_persentage" 
+                    id="masterForm.discount_persentage" 
+                    name="masterForm.discount_persentage" 
+                    placeholder="Discount Persentage" 
+                    :readonly="$readonly"
 
-    <x-input type="number" wire:model="masterForm.rating" label="Rating" step="any" :readonly="$isReadonly" />
+                />
+            </div>
+            <div class="mb-3">
+                <x-input 
+                    label="Discount Value" 
+                    wire:model="masterForm.discount_value" 
+                    id="masterForm.discount_value" 
+                    name="masterForm.discount_value" 
+                    placeholder="Discount Value" 
+                    :readonly="$readonly"
 
-    <x-input type="number" wire:model="masterForm.sold_qty" label="Sold Qty" :readonly="$isReadonly" />
+                />
+            </div>
+            <div class="mb-3">
+                <x-input 
+                    label="Nett Price" 
+                    wire:model="masterForm.nett_price" 
+                    id="masterForm.nett_price" 
+                    name="masterForm.nett_price" 
+                    placeholder="Nett Price" 
+                    :readonly="$readonly"
 
-    <x-file wire:model="masterForm.image_url" label="Image" accept="image/*" crop-after-change :disabled="$isDisabled">
-      <img
-        src="{{ $masterForm->image_url ?? 'https://upload.wikimedia.org/wikipedia/commons/1/14/No_Image_Available.jpg?20200913095930' }}"
-        class="h-48 rounded-lg" />
-    </x-file>
+                />
+            </div>
+            <div class="mb-3">
+                <x-input 
+                    label="Weight" 
+                    wire:model="masterForm.weight" 
+                    id="masterForm.weight" 
+                    name="masterForm.weight" 
+                    placeholder="Weight" 
+                    :readonly="$readonly"
 
-    {{-- <x-choices-offline wire:model="masterForm.is_new" label="Is New" :options="[['id' => 0, 'name' => 'No'], ['id' => 1, 'name' => 'Yes']]" single searchable
-      :readonly="$isReadonly" /> --}}
+                />
+            </div>
+            <div class="mb-3">
+                <x-input 
+                    label="Rating" 
+                    wire:model="masterForm.rating" 
+                    id="masterForm.rating" 
+                    name="masterForm.rating" 
+                    placeholder="Rating" 
+                    :readonly="$readonly"
 
-    <x-choices-offline wire:model="masterForm.is_activated" label="Is Activated" :options="[['id' => 0, 'name' => 'Inactive'], ['id' => 1, 'name' => 'Active']]" single searchable
-      :readonly="$isReadonly" />
+                />
+            </div>
 
-    <x-input type="number" wire:model="masterForm.ordinal" label="Ordinal" placeholder="Ordinal" :readonly="$isReadonly" />
+              <div class="text-center mt-3">
+                <x-errors class="text-white mb-3" />
+                <x-button type="submit" :label="$id ? 'update' : 'store'" class="btn-success btn-sm text-white" />
+              </div>
 
-    @if (!$isReadonly)
-      <div class="text-center mt-3">
-        <x-errors class="text-white mb-3" />
-        <x-button type="submit" :label="$id ? 'Update' : 'Store'" class="btn-success btn-sm text-white" />
-      </div>
-    @endif
-  </x-form>
+          </div>
+      </x-form>
 
+    <x-button label="Cancel" class="text-xs md:text-sm" wire.click="closeModal" />
 
-</x-card>
+    @script
+        <script>
+
+            let $wire = {
+                $watch(name, callback) { ... },
+            }
+
+            $wire.$set(name, value, live = true) { 
+                
+            },
+
+            
+            $wire.on('product-created', () => {
+                console.log('product-created');
+            });
+        </script>
+    @endscript
+
+</div>

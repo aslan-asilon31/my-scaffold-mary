@@ -82,61 +82,39 @@ final class ProductTable extends PowerGridComponent
         ->visibleInExport(false),
 
       Column::make('ID', 'id')
-        ->sortable()
-        ->headerAttribute('text-center', 'background-color:#A16A38; color:white;text-align:center;'),
-
+        ->sortable(),
 
       Column::make('Availability', 'availability')
-        ->sortable()
-        ->headerAttribute('text-center', 'background-color:#A16A38; color:white;text-align:center;'),
-
+        ->sortable(),
 
       Column::make('Name', 'name')
-        ->sortable()
-        ->headerAttribute('text-center', 'background-color:#A16A38; color:white;text-align:center;'),
-
+        ->sortable(),
 
       Column::make('Product Category First Name', 'product_category_firsts_name')
-        ->sortable()
-        ->headerAttribute('text-center', 'background-color:#A16A38; color:white;text-align:center;'),
-
+        ->sortable(),
 
       Column::make('Selling Price', 'selling_price')
         ->bodyAttribute('text-right')
-        ->sortable()
-        ->headerAttribute('text-center', 'background-color:#A16A38; color:white;text-align:center;'),
-
+        ->sortable(),
 
       Column::make('Image URL', 'image_url')
-        ->sortable()
-        ->headerAttribute('text-center', 'background-color:#A16A38; color:white;text-align:center;'),
-
+        ->sortable(),
 
       Column::make('Created By', 'created_by')
-        ->sortable()
-        ->headerAttribute('text-center', 'background-color:#A16A38; color:white;text-align:center;'),
-
+        ->sortable(),
 
       Column::make('Updated By', 'updated_by')
-        ->sortable()
-        ->headerAttribute('text-center', 'background-color:#A16A38; color:white;text-align:center;'),
-
+        ->sortable(),
 
       Column::make('Created At', 'created_at')
-        ->sortable()
-        ->headerAttribute('text-center', 'background-color:#A16A38; color:white;text-align:center;'),
-
+        ->sortable(),
 
       Column::make('Updated At', 'updated_at')
-        ->sortable()
-        ->headerAttribute('text-center', 'background-color:#A16A38; color:white;text-align:center;'),
-
+        ->sortable(),
 
       Column::make('Is Activated', 'is_activated')
         ->bodyAttribute('text-center')
-        ->sortable()
-        ->headerAttribute('text-center', 'background-color:#A16A38; color:white;text-align:center;'),
-
+        ->sortable(),
     ];
   }
 
